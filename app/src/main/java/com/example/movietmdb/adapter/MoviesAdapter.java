@@ -1,12 +1,16 @@
 package com.example.movietmdb.adapter;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -24,6 +28,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     private List<Movie> movies;
     private int rowLayout;
     private Context context;
+    private static  int id;
 
     public static final String IMAGE_URL_BASE_PATH="https://image.tmdb.org/t/p/w780/";
     public MoviesAdapter(List<Movie> movies, int rowLayout, Context context) {
@@ -59,19 +64,23 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                 .into(holder.movieImage);
         holder.movieImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v ) {
                 Intent intent = new Intent(v.getContext(), MovieDetails.class);
+                intent.putExtra("movie", position);
+            Log.d(TAG, "Intent position: " + position);
+            Log.d(TAG, "Intent id: " + id);
+//            startActivity(intent);
                 v.getContext().startActivity(intent);
-
-
+//                Toast.makeText(context, "The position "+position, Toast.LENGTH_SHORT).show();
 
             }
         });
 
         holder.movieTitle.setText(movies.get(position).getTitle());
         holder.data.setText(movies.get(position).getReleaseDate());
-//        holder.movieDescription.setText(movies.get(position).getOverview());
+        holder.movieDescription.setText(movies.get(position).getId().toString());
         holder.rating.setText(movies.get(position).getVoteAverage().toString());
+
 
 
     }
@@ -92,6 +101,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         TextView movieDescription;
         TextView rating;
         ImageView movieImage;
+
+        //click listener
+
         public MovieViewHolder(View v) {
             super(v);
             moviesLayout =v.findViewById(R.id.movies_layout);
@@ -101,6 +113,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             movieDescription =v.findViewById(R.id.description);
             rating =v.findViewById(R.id.rating);
         }
+
     }
 
 }

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Now_Playing</string>
+    <string name="app_name">Movie(TMDB)</string>
+    <string name="poster_transition">poster</string>
 </resources>

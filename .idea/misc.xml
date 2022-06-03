@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Movie(TMDB)/app/src/main/res/layout/activity_main.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Movie(TMDB)/app/src/main/res/layout/activity_movie_details.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Movie(TMDB)/app/src/main/res/layout/activity_splash.xml" value="0.1" />
+        <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Movie(TMDB)/app/src/main/res/layout/list_item_movie.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Movie(TMDB)/app/src/main/res/layout/movie_details.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Now_Playing/app/src/main/res/drawable/star.xml" value="0.128" />
         <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Now_Playing/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Microsoft/AndroidStudioProjects/Now_Playing/app/src/main/res/layout/activity_movie_details.xml" value="0.17074275362318841" />

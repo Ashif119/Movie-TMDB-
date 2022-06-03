@@ -5,6 +5,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,8 +13,9 @@ import com.example.movietmdb.MainActivity;
 import com.example.movietmdb.MovieApiService;
 import com.example.movietmdb.R;
 import com.example.movietmdb.model.Movie;
+import com.example.movietmdb.model.MovieResponse;
+import com.squareup.picasso.Picasso;
 
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -26,13 +28,17 @@ public class MovieDetails extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final String BASE_URL = "https://api.themoviedb.org";
+    public static final String lang ="en-US";
+    public static  int position;
+
+
+    public static final String API_KEY = "55957fcf3ba81b137f8fc01ac5a31fb5";
 
     private int id;
     private List<Movie> movies;
     public static final String IMAGE_URL_BASE_PATH="https://image.tmdb.org/t/p/w780/";
 
 
-    public static final String API_KEY = "55957fcf3ba81b137f8fc01ac5a31fb5";
     private static Retrofit retrofit = null;
     private RecyclerView recyclerView = null;
     private Movie movie;
@@ -66,24 +72,52 @@ public class MovieDetails extends AppCompatActivity {
                     .build();
         }
         MovieApiService movieApiService = retrofit.create(MovieApiService.class);
-        Call<Movie> call = movieApiService.getMovie(
-                id,API_KEY
+//        Call<Movie> call = movieApiService.getMovie(
+//                "284052",API_KEY
+//        );
+//        call.enqueue(new Callback<Movie>() {
+//            @Override
+//            public void onResponse(Call<Movie> call, Response<Movie> response) {
+//                List<Movie> movies = response.body();
+//                movieTitle.setText(movies.get(0).getTitle());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Movie> call, Throwable t) {
+//
+//            }
+//        });
+        Call<MovieResponse> call = movieApiService.listMovie(
+                API_KEY,lang,"1"
         );
-        call.enqueue(new Callback<Movie>() {
+        call.enqueue(new Callback<MovieResponse>() {
             @Override
-            public void onResponse(Call<Movie> call, Response<Movie> response) {
-                List<Movie> data= Collections.singletonList(response.body());
-//                for (int i=0;i<data.size();i++);
-                movieTitle.setText(movies.get(data.size()).getTitle());
+            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+                List<Movie> movies = response.body().getResults();
+                Bundle bundle = getIntent().getExtras();
+                int mPosition = 0;
+                if (bundle != null) {
+                    mPosition = bundle.getInt("movie");
+                    Log.d(TAG, "Bundle mPosition: " + mPosition);
+                }
 
-//                String image_url = IMAGE_URL_BASE_PATH+movie.getPosterPath();
-//                Picasso.get()
-//                        .load(image_url).into(movieImage);
+//                int moviePosition = (int) (mPosition + 1);
+//                Log.d(TAG, "Bundle moviePosition: " + moviePosition);
+
+
+                Picasso.get()
+                        .load(IMAGE_URL_BASE_PATH+movies.get(mPosition).getBackdropPath())
+                        .into(movieImage);
+                movieTitle.setText(movies.get(mPosition).getTitle());
+                data.setText(movies.get(mPosition).getReleaseDate());
+                movieDescription.setText(movies.get(mPosition).getOverview().toString());
+                rating.setText(movies.get(mPosition).getVoteAverage().toString());
+
 
             }
 
             @Override
-            public void onFailure(Call<Movie> call, Throwable t) {
+            public void onFailure(Call<MovieResponse> call, Throwable t) {
 
             }
         });

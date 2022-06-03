@@ -19,7 +19,7 @@ public interface MovieApiService {
     );
     @GET("/3/movie/{id}?")
     Call<Movie> getMovie(
-            @Path("id") int id,
+            @Path("id") String id,
             @Query("api_key") String key
     );
 }
