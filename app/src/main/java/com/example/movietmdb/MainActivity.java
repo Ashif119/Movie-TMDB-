@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.denzcoskun.imageslider.ImageSlider;
+import com.denzcoskun.imageslider.constants.ScaleTypes;
+import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.movietmdb.adapter.MoviesAdapter;
 import com.example.movietmdb.model.Movie;
 import com.example.movietmdb.model.MovieResponse;
 import com.example.movietmdb.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,10 +36,22 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView = null;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ImageSlider imageSlider = findViewById(R.id.slider);
+        List<SlideModel> slideModels=new ArrayList<>();
+        slideModels.add(new SlideModel(R.drawable.icon, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.doctor, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.ffbeast, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.morbious, ScaleTypes.CENTER_CROP));
+        slideModels.add(new SlideModel(R.drawable.thelostcity, ScaleTypes.CENTER_CROP));
+
+        imageSlider.setImageList(slideModels);
+
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
