@@ -33,6 +33,7 @@
                 android:layout_gravity="top"
                 android:scaleType="fitCenter"
                 android:id="@+id/movie_image"
+                app:iss_corner_radius="20"
                 />
 
 
